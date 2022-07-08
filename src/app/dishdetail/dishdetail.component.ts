@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { Dish } from '../shared/Dish';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -22,20 +22,24 @@ export class DishdetailComponent implements OnInit {
     next: string;
     size: number;
 
+    errMsg: string;
+
     commentForm!: FormGroup;
     comment!: Comment;
 
     constructor(private dishService: DishService,
         private route: ActivatedRoute,
-        private location: Location, private fb: FormBuilder) {
-        this.createForm();
+        private location: Location, private fb: FormBuilder,
+        @Inject ('BaseURL') private BaseURL) {
     }
 
 
     ngOnInit() {
+        this.createForm();
         this.dishService.getDishIds().subscribe((dishIds) => this.dishIds = dishIds);
         this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-            .subscribe((dish) => { this.dish = dish; this.setPrevNext(dish.id), this.size = dish.comments.length; });
+            .subscribe((dish) => { this.dish = dish; this.setPrevNext(dish.id), this.size = dish.comments.length; },
+            errmsg => this.errMsg = <any>errmsg);
     }
 
     setPrevNext(dishId: string) {
