@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatSliderModule} from '@angular/material/slider';
 
 import { AppComponent } from './app.component';
 
@@ -60,7 +61,8 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSliderModule
 
   ],
   providers: [
